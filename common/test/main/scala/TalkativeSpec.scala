@@ -1,5 +1,10 @@
 package io.sve.common
 
+import collection.mutable.Stack
+import org.scalatest._
+import flatspec._
+import matchers._
+
 class TalkativeSpec extends AnyFlatSpec with should.Matchers {
 
   "A Stack" should "pop values in last-in-first-out order" in {

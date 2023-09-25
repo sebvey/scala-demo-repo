@@ -17,7 +17,10 @@ lazy val root = (project in file("."))
     .settings(name := "ScalaDemoRepo")
 
 lazy val common = (project in file("common"))
-    .settings(name := "Common")
+    .settings(
+        name := "Common",
+        libraryDependencies += scalatestDep
+    )
 
 lazy val sparkBasics = (project in file("spark-basics"))
     .settings(
