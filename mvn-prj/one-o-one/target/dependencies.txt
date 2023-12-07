@@ -1,0 +1,16 @@
+digraph "edu.sve:oneOone:jar:1.0-SNAPSHOT" { 
+	"edu.sve:oneOone:jar:1.0-SNAPSHOT" -> "org.scala-lang:scala-library:jar:2.12.17:compile" ; 
+	"edu.sve:oneOone:jar:1.0-SNAPSHOT" -> "junit:junit:jar:4.12:test" ; 
+	"edu.sve:oneOone:jar:1.0-SNAPSHOT" -> "org.scalatest:scalatest_2.12:jar:3.0.5:test" ; 
+	"edu.sve:oneOone:jar:1.0-SNAPSHOT" -> "org.specs2:specs2-core_2.12:jar:4.2.0:test" ; 
+	"edu.sve:oneOone:jar:1.0-SNAPSHOT" -> "org.specs2:specs2-junit_2.12:jar:4.2.0:test" ; 
+	"junit:junit:jar:4.12:test" -> "org.hamcrest:hamcrest-core:jar:1.3:test" ; 
+	"org.scalatest:scalatest_2.12:jar:3.0.5:test" -> "org.scalactic:scalactic_2.12:jar:3.0.5:test" ; 
+	"org.scalatest:scalatest_2.12:jar:3.0.5:test" -> "org.scala-lang:scala-reflect:jar:2.12.4:test" ; 
+	"org.scalatest:scalatest_2.12:jar:3.0.5:test" -> "org.scala-lang.modules:scala-xml_2.12:jar:1.0.6:test" ; 
+	"org.specs2:specs2-core_2.12:jar:4.2.0:test" -> "org.specs2:specs2-matcher_2.12:jar:4.2.0:test" ; 
+	"org.specs2:specs2-core_2.12:jar:4.2.0:test" -> "org.scala-sbt:test-interface:jar:1.0:test" ; 
+	"org.specs2:specs2-matcher_2.12:jar:4.2.0:test" -> "org.specs2:specs2-common_2.12:jar:4.2.0:test" ; 
+	"org.specs2:specs2-common_2.12:jar:4.2.0:test" -> "org.specs2:specs2-fp_2.12:jar:4.2.0:test" ; 
+	"org.specs2:specs2-common_2.12:jar:4.2.0:test" -> "org.scala-lang.modules:scala-parser-combinators_2.12:jar:1.1.0:test" ; 
+ } 
