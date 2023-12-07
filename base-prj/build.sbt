@@ -14,7 +14,7 @@ lazy val root = (project in file("."))
         common,
         sparkBasics
     )
-    .settings(name := "ScalaDemoRepo")
+    .settings(name := "BasePrj")
 
 lazy val framework = (project in file("framework"))
     .settings(

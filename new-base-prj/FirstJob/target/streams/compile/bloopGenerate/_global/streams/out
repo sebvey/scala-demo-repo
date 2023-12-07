@@ -1,0 +1,4 @@
+[debug] [firstJob] Classpath dependencies List(framework)
+[debug] [firstJob] Dependencies from configurations List()
+[debug] Bloop wrote the configuration of project 'firstJob' to '/home/sve/workspaces/perso/scala/scala-demo-repo/new-base-prj/.bloop/firstJob.json'
+[success] Generated .bloop/firstJob.json

@@ -1,0 +1,4 @@
+[debug] [sparkBasics-test] Classpath dependencies List(framework)
+[debug] [sparkBasics-test] Dependencies from configurations List(sparkBasics)
+[debug] Bloop wrote the configuration of project 'sparkBasics-test' to '/home/sve/workspaces/perso/scala/scala-demo-repo/base-prj/.bloop/sparkBasics-test.json'
+[success] Generated .bloop/sparkBasics-test.json

@@ -1,0 +1,4 @@
+[debug] [framework-test] Classpath dependencies List()
+[debug] [framework-test] Dependencies from configurations List(framework)
+[debug] Bloop wrote the configuration of project 'framework-test' to '/home/sve/workspaces/perso/scala/scala-demo-repo/new-base-prj/.bloop/framework-test.json'
+[success] Generated .bloop/framework-test.json
