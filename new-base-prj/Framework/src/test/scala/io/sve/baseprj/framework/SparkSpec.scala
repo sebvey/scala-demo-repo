@@ -1,8 +1,12 @@
 package io.sve.baseprj.framework
 
-import org.apache.spark.sql.SparkSession
+// https://github.com/MrPowers/spark-fast-tests/
 
-trait SparkSpec extends BaseSpec {
+import org.apache.spark.sql.SparkSession
+import com.github.mrpowers.spark.fast.tests.DatasetComparer
+import com.github.mrpowers.spark.fast.tests.ColumnComparer
+
+trait SparkSpec extends BaseSpec with DatasetComparer with ColumnComparer {
 
     self: BaseSpec =>
 
@@ -10,7 +14,7 @@ trait SparkSpec extends BaseSpec {
             val ss = SparkSession
                 .builder()
                 .master("local[1]")
-                .config("spark.sql.shuffle.partitions", "4")
+                .config("spark.sql.shuffle.partitions", "1")
                 .config("spark.ui.enabled", "false")
                 .getOrCreate()
             ss.sparkContext.setLogLevel("WARN")
