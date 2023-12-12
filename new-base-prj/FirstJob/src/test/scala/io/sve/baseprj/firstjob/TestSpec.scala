@@ -2,7 +2,7 @@ package io.sve.baseprj.firstjob
 
 import io.sve.baseprj.framework.SparkSpec
 
-class extends SparkSpec {
+class TestSpec extends SparkSpec {
 
     import spark.implicits._
 
