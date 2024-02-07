@@ -6,7 +6,7 @@ class TestSpec extends SparkSpec {
 
     import spark.implicits._
 
-    "test" should "do something" in {
+    it should "compare two small DF" in {
 
         val expectedDF = Seq(
             (1,"this is a test"),
@@ -21,11 +21,11 @@ class TestSpec extends SparkSpec {
         assertSmallDatasetEquality(actualDF, expectedDF)
     }
 
-    "test2" should "test columns" in {
+    it should "compare two Columns of a DF" in {
 
         val expectedDF = Seq(
             (1,"this is a test","this is a test"),
-            (2,"hello sbt","hello SBT")
+            (2,"hello sbt","hello sbt")
         ).toDF("id","desc1","desc2")
 
         assertColumnEquality(expectedDF, "desc1", "desc2")

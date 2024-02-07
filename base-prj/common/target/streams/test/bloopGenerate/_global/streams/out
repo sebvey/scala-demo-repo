@@ -1,4 +1,0 @@
-[debug] [common-test] Classpath dependencies List(framework)
-[debug] [common-test] Dependencies from configurations List(common)
-[debug] Bloop wrote the configuration of project 'common-test' to '/home/sve/workspaces/perso/scala/scala-demo-repo/base-prj/.bloop/common-test.json'
-[success] Generated .bloop/common-test.json
