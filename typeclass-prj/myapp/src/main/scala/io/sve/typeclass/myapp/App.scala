@@ -1,4 +1,4 @@
-package io.sve.functorprj.myapp
+package io.sve.typeclass.myapp
 
 
 
@@ -10,16 +10,16 @@ object App extends App {
 
   // ---------------------------------------------------------------------------
   // Basic use of Type Class (useless in real life)
-  // (type class Descriptor[T] is defined in common package)
+  // (type class Descriptor[T] is defined in other file)
 
-  import io.sve.functorprj.common.Descriptor._
+  import Descriptor._
   intDescriptor.getDescription(i)
 
   // We can now define a polymorphic function
   // It's definition won't change
   // can be used on every type T that has an implicit Descriptor[T] defined
 
-  import io.sve.functorprj.common.Descriptor
+
   def describe[A](a: A)(implicit d: Descriptor[A]): Unit = println(d.getDescription(a))
 
 

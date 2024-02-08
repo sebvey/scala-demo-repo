@@ -6,21 +6,7 @@ lazy val baseDeps = Seq(
     "org.scalatest" %% "scalatest" % "3.2.15"
 )
 
-lazy val root = (project in file("."))
-.aggregate(
-    myapp
-)
-.settings(
-    name := "FunctorPrj"
-)
-
-lazy val common = project
-    .settings(
-        name := "Common"
-    )
-
 lazy val myapp = project
-.dependsOn(common)
 .settings(
     name := "App",
     libraryDependencies ++= baseDeps

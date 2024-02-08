@@ -1,7 +1,10 @@
-package io.sve.functorprj.common
+package io.sve.typeclass.myapp
 
 
-// Descriptor is a type class
+// Descriptor is a type class :
+// trait is the contract
+// implicits are the implementation of types
+
 trait Descriptor[A] {
     def getDescription(a:A): String
 }
