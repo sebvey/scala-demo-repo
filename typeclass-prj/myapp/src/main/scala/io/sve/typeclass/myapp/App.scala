@@ -9,9 +9,26 @@ object App extends App {
   val s: String = "Hello Type class"
 
   // ---------------------------------------------------------------------------
-  // Basic use of Type Class (useless in real life)
-  // (type class Descriptor[T] is defined in other file)
+  // Type Class :
+  // - a contract for types
+  // - instances of types
 
+  trait Descriptor[A] {
+    def getDescription(a:A): String
+  }
+
+  object Descriptor {
+
+      implicit val intDescriptor = new Descriptor[Int] {
+          override def getDescription(a: Int): String = s"Int: $a"
+      }
+
+      implicit val stringDescriptor = new Descriptor[String] {
+          def getDescription(s: String): String = s"String: $s"
+      }
+  }
+
+  // basic use (useless in real life)
   import Descriptor._
   intDescriptor.getDescription(i)
 
@@ -20,8 +37,8 @@ object App extends App {
   // can be used on every type T that has an implicit Descriptor[T] defined
 
 
-  def describe[A](a: A)(implicit d: Descriptor[A]): Unit = println(d.getDescription(a))
-
+  def describe[A](a: A)(implicit d: Descriptor[A]): Unit =
+    println(d.getDescription(a))
 
   describe(i)
   describe(s)
@@ -32,8 +49,12 @@ object App extends App {
   // that can be used on types A that have a corresponding implicit instance
   // of type class Descriptor[A]
 
-  // An other need can be to have a method 'show' directly accessible from an
-  // object of type A
+  // An other need can be to have a method 'describe' directly accessible from
+  // an object of type A
+
+  // The implicit class bellow allows us to implicitly convert a type A to a
+  // Descriptible[A], with a method describe
+  // that uses the type class Descriptor
 
   // // NOT GENERIC VERSION
   // implicit class Descriptible(i: Int) {
