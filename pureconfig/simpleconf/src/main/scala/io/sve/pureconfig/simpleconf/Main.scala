@@ -1,21 +1,17 @@
 package io.sve.pureconfig.simpleconf
 
 
+import io.sve.framework.app.AppWithConf
 import pureconfig._
 import pureconfig.generic.auto._
 import io.sve.pureconfig.simpleconf.conf.MyConf
+import io.sve.framework.conf.CustomPureConfig
 
 
 
-object Main extends App {
+object Main extends AppWithConf {
 
     println("Hello from ZimpleConf")
-
-    // overrides default ConfigReader[String], to get lower strings
-    // implicit val strReader: ConfigReader[String] = ConfigReader.fromString[String](catchReadError(_.toLowerCase))
-
-    // overrides naming convention : from camelCase for fields in conf file, to camelCase for fields in fields in Scala Object
-    // implicit def hint[A]: ProductHint[A] = ProductHint[A](ConfigFieldMapping(CamelCase, CamelCase))
 
     val conf = ConfigSource.default.loadOrThrow[MyConf]
     println(conf)

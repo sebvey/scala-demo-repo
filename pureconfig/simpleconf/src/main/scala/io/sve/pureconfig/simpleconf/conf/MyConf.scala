@@ -1,8 +1,10 @@
 package io.sve.pureconfig.simpleconf.conf
 
-import MyConf._
 import pureconfig.ConfigReader
 import pureconfig.generic.semiauto._
+
+import MyConf._
+import org.apache.hadoop.fs.Path
 
 case class MyConf(
   name: String,
@@ -11,7 +13,8 @@ case class MyConf(
   nicknames: Seq[String],
   maturity: Double,
   mantra: Option[String],
-  petsList: List[Pet]
+  petsList: List[Pet],
+  myPath: Path
 )
 
 object MyConf {
@@ -30,9 +33,5 @@ object MyConf {
     implicit val sexReader: ConfigReader[Sex] = deriveEnumerationReader[Sex]
     case object Male extends Sex
     case object Female extends Sex
-
   }
-
-
-
 }
