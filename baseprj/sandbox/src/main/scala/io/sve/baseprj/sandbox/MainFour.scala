@@ -1,10 +1,17 @@
 package io.sve.baseprj.sandbox
 
-import org.apache.spark.sql.types.{IntegerType, StructField, StructType}
+import org.apache.spark.sql.types.{DataType, IntegerType, StringType, StructField, StructType}
 import shapeless.{::, Generic, HList, HNil}
 
 
 object MainFour extends App {
+
+  case class Field(
+                   name: String,
+                   dataType: DataType,
+                   nullable: Boolean,
+                   desc: String
+                  )
 
   trait StructFieldEncoder[A] {
     def encode(value: A): List[StructField]
@@ -15,7 +22,11 @@ object MainFour extends App {
     def instance[A](func: A => List[StructField]): StructFieldEncoder[A] = (value: A) => func(value)
 
     // basic types encoders
-    implicit val structFieldEncoder: StructFieldEncoder[StructField] = StructFieldEncoder.instance(sf => List(sf))
+    implicit val structFieldEncoder: StructFieldEncoder[StructField] =
+      StructFieldEncoder.instance(sf => List(sf))
+
+    implicit val fieldEncoder: StructFieldEncoder[Field] =
+      StructFieldEncoder.instance( f => List(StructField(f.name,f.dataType,f.nullable)) )
 
     // HList encoders
     implicit val hnilEncoder: StructFieldEncoder[HNil] = instance(hnil => Nil)
@@ -37,10 +48,10 @@ object MainFour extends App {
   def getStructType[A](schema: A)(implicit enc: StructFieldEncoder[A]): StructType = StructType(enc.encode(schema))
 
 
-  // Usage
+  // FIRST POSSIBLE USAGE
 
   case class MySchema(
-    firstname: StructField = StructField("name", IntegerType),
+    firstname: StructField = StructField("firstname", StringType),
     number: StructField = StructField("number", IntegerType)
   )
 
@@ -49,9 +60,25 @@ object MainFour extends App {
     val structType: StructType = getStructType(fields)
   }
 
+  println("FIRST USAGE")
+  println(s"${MySchema.fields.firstname}")
+  MySchema.structType.foreach(sf => println(s" - $sf"))
 
-  println(s"MySchema.fields.firstname : ${MySchema.fields.firstname}")
 
-  println(s"MySchema.structType :")
-  MySchema.structType.foreach(sf => println(s" - ${sf}"))
+  // ANOTHER POSSIBLE USAGE
+
+  case class MonSchema(
+    prenom: Field = Field("prénom", StringType, nullable = true, "ce qui est avant le nom"),
+    age: Field = Field("age", IntegerType, nullable = true, "ce qui quantifie l'inquantifiable"),
+  )
+
+  object MonSchema {
+    val fields: MonSchema = MonSchema()
+    val structType: StructType = getStructType(fields)
+  }
+
+  println("SECOND USAGE")
+  println(s"${MonSchema.fields.prenom}")
+  MonSchema.structType.foreach(sf => println(s" - $sf"))
+
 }
