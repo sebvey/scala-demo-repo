@@ -11,7 +11,8 @@ lazy val baseDependencies = Seq(
   "com.github.pureconfig" %% "pureconfig-hadoop" % "0.17.6",
   "com.github.scopt"      %% "scopt"             % "4.1.0",
   "com.chuusai"           %% "shapeless"         % "2.3.3",
-  "org.scalatest"         %% "scalatest"         % "3.2.17" % Test
+  "org.scalactic"         %% "scalactic"         % "3.2.18",
+  "org.scalatest"         %% "scalatest"         % "3.2.18" % "test"
 )
 
 lazy val root = (project in file("."))
