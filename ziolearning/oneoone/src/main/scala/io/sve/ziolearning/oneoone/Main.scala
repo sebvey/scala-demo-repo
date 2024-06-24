@@ -25,10 +25,8 @@ object Main extends ZIOAppDefault {
     // An effect that succeeds with a specified value
     val s1: ZIO[Any, Nothing, Int] = ZIO.succeed(42)
 
-    // An effect that fails, failure type is String (type IO[E,A] = ZIO[Any,E,A])
+    // An effect that fails with given failure (type IO[E,A] = ZIO[Any,E,A])
     val f1: IO[String, Nothing] = ZIO.fail("Uh oh...")
-
-    // An effect that fails, failure type is Exception
     val f2: IO[Exception, Nothing] = ZIO.fail(new Exception("Uh oh..."))
 
     // FROM VALUES
@@ -72,6 +70,6 @@ object Main extends ZIOAppDefault {
     // ZIO of Future
 
 
-    val run = readLine.flatMap(line => printLine(line))
+    val run = noneInt
 
 }

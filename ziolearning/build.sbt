@@ -3,8 +3,8 @@ ThisBuild / scalaVersion := "2.13.14"
 ThisBuild / organization := "io.sve"
 
 lazy val baseDependencies = Seq(
-  "dev.zio"               %% "zio"               % "2.0.21",
-  "org.scalatest"         %% "scalatest"         % "3.2.17" % Test
+  "dev.zio"               %% "zio"               % "2.0.22",
+  "org.scalatest"         %% "scalatest"         % "3.2.18" % Test
 )
 
 lazy val root = (project in file("."))
