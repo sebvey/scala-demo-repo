@@ -4,7 +4,7 @@ import zio._
 
 import scala.io.StdIn
 
-object MainTwo extends ZIOAppDefault {
+object Compose extends ZIOAppDefault {
 
   //////
   //
