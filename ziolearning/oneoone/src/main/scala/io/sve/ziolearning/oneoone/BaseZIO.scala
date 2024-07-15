@@ -67,7 +67,7 @@ object BaseZIO extends ZIOAppDefault {
   // ZIO of Future
   import scala.concurrent.Future
 
-  // The future must be a def (or a lazy val...) so that the valuation is not triggered when defined
+  // The future must be a def so that the valuation is not triggered when defined
   // (you should test changing def to val)
 
   def future                            = Future.successful { println("Evaluated"); 42 }

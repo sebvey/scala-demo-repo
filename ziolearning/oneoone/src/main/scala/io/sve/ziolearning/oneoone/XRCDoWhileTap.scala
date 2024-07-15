@@ -9,7 +9,7 @@ import zio.Schedule
 import zio.{Scope, ZIOAppArgs}
 
 
-object XRC extends ZIOAppDefault {
+object XRCDoWhileTap extends ZIOAppDefault {
 
   def doWhile[R,E,A](body: ZIO[R,E,A])(condition: A => Boolean): ZIO[R,E,A] = for {
     attempt <- body
