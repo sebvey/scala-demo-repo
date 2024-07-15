@@ -9,21 +9,30 @@ import zio.Schedule
 
 object XRC extends ZIOAppDefault {
 
-  case class User(name: String)
-  case class AuthError(error: String)
-
-
-  object legacy {
-    def login(onSuccess: User => Unit, onFailure: AuthError => Unit): Unit = ???
-  }
-
-  val login: ZIO[Any, AuthError, User] =
-    ZIO.async[Any, AuthError, User] { callback =>
-      legacy.login(
-        user => callback(ZIO.succeed(user)),
-        err  => callback(ZIO.fail(err))
-      )
+  def getCache(
+    key: Int,
+    onSuccess: String => Unit,
+    onFailure: Throwable => Unit
+    ): Unit = {
+      key match {
+        case 42 => onSuccess("The Answer")
+        case _ => onFailure(new Exception("Don't have the answer"))
+      }
     }
 
-  val run = ZIO.succeed({})
+  def getCacheZIO(key: Int): ZIO[Any,Throwable, String] =
+    ZIO.async {
+      callback =>
+        getCache(
+          key,
+          s => callback(ZIO.succeed(s)),
+          e => callback(ZIO.fail(e)))
+    }
+
+  val keys = List(42,41,40)
+
+  val run = for {
+    cached <- ZIO.foreach(keys)(getCacheZIO(_).orElse(ZIO.succeed("Evil")))
+    _ <- printLine(s"Cached : $cached")
+  } yield ()
 }
