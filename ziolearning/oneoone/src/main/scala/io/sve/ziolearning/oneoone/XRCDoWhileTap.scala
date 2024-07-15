@@ -11,15 +11,12 @@ import zio.{Scope, ZIOAppArgs}
 
 object XRCDoWhileTap extends ZIOAppDefault {
 
-  def doWhile[R,E,A](body: ZIO[R,E,A])(condition: A => Boolean): ZIO[R,E,A] = for {
-    attempt <- body
-    result <- if (condition(attempt)) ZIO.succeed(attempt) else doWhile(body)(condition)
-  } yield (result)
+  def doWhile[R,E,A](body: ZIO[R,E,A])(condition: A => Boolean): ZIO[R,E,A] =
+    body.flatMap( r => if (condition(r)) ZIO.succeed(r) else doWhile(body)(condition))
 
   def rnd = zio.Random.nextIntBetween(40,50).tap(i => printLine(s"Generated : $i"))
 
   def condition(i: Int) = i == 42
-
 
   def run = doWhile(rnd)(condition)
 }

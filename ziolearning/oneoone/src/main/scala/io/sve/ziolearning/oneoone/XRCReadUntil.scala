@@ -11,11 +11,8 @@ import zio.{Scope, ZIOAppArgs}
 
 object XRCReadUntil extends ZIOAppDefault {
 
-  def readUntil(acceptInput: String => Boolean): ZIO[Any,IOException,String] = for {
-    s <- readLine
-    result <- if (acceptInput(s)) ZIO.succeed(s) else readUntil(acceptInput)
-  } yield (result)
-
+  def readUntil(acceptInput: String => Boolean): ZIO[Any,IOException,String] =
+    readLine.flatMap(s => if (acceptInput(s)) ZIO.succeed(s) else readUntil(acceptInput))
 
   def isTheAnswer(s: String) = s == "42"
   def run = readUntil(isTheAnswer)
