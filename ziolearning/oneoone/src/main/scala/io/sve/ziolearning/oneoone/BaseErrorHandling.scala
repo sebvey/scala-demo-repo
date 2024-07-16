@@ -6,13 +6,14 @@ import scala.io.StdIn
 import java.io.IOException
 import java.io.FileNotFoundException
 
-// cf doc : https://zio.dev/overview/handling-errors/
+// TODO - more on doc (folding / retrying)
+//  https://zio.dev/overview/handling-errors/
 
 object BaseErrorHandling extends ZIOAppDefault {
 
   val readInt = Console.readLine.flatMap(s => ZIO.attempt(s.toInt))
 
-  // New effect on failure
+  // Fallback (orElse) : new effect on failure
   val toSuccess = for {
     _ <- Console.printLine("ENTER AN INTEGER")
     r <- readInt.orElse(ZIO.succeed(42))
