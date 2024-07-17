@@ -4,10 +4,9 @@ ThisBuild / organization := "io.sve"
 
 
 lazy val baseDependencies = Seq(
-  "dev.zio"                          %% "zio"           % "2.0.22",
-  "com.softwaremill.sttp.client4"    %% "core"          % "4.0.0-M16",
-  "com.softwaremill.sttp.client4"    %% "zio"           % "4.0.0-M16",
-  "org.scalatest"                    %% "scalatest"     % "3.2.18" % Test
+  "dev.zio"                          %% "zio"           % "2.1.4",
+  "dev.zio"                          %% "zio-json"      % "0.6.2",
+  "org.scalatest"                    %% "scalatest"     % "3.2.19" % Test
 )
 
 lazy val root = (project in file("."))
