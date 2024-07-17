@@ -7,7 +7,7 @@ import zio.Clock._
 import java.io.IOException
 
 
-object SB extends ZIOAppDefault {
+object BaseParallelAndErrorAccumulation extends ZIOAppDefault {
 
   val first = ZIO.succeed(21)
   val second = ZIO.succeed("23")
@@ -39,14 +39,23 @@ object SB extends ZIOAppDefault {
     ).withParallelism(2)
 
 
-  // FORCE END PARALLEL FIBERS ON ERROR
+  // ERROR ACCUMULATION INSTEAD OF FAILFAST
   // use case, we want to know all errors for a validation process
-  // validatePar -> foreachPar equivalent but without interruption of other fibers on one failure
+  // ZIO.validatePar(Iterator) : ZIO.foreachPar(Iterator)  equivalent but without interruption of other fibers on one failure
+  // ZIO.validate(Iterator) : ZIO.foreach(Iterator)
+  // ze1 validate ze2 : ze1 zip ze2 equivalent
+  // ze1 validatePar ze2 : ze1 zipPar ze2 equivalent
 
   val toProcess = List("GOOD","BAD", "BAD")
   def zioProcess(s: String): ZIO[Any, String, Int] = if (s == "GOOD") ZIO.succeed(101) else ZIO.fail("VALUE ERROR")
-  val process: ZIO[Any, ::[String], List[Int]] = ZIO.validatePar(toProcess)(zioProcess)
+  val validatePar: ZIO[Any, ::[String], List[Int]] = ZIO.validatePar(toProcess)(zioProcess)
 
-  val run = process
+
+  // ZIO.partition / ZIO.partitionPar : foreach / foreachPar equivalent but :
+  // - always succeed
+  // - returns a sucess type (Iterable[E], Iterable[B])
+  // => we can later process the errors and success :-)
+
+  val run: ZIO[Any, Nothing, (Iterable[String], Iterable[Int])] = ZIO.partitionPar(toProcess)(zioProcess).debug
 
 }
