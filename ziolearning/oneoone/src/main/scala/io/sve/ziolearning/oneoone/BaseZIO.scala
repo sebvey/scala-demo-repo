@@ -9,13 +9,20 @@ import scala.util.Try
 
 object BaseZIO extends ZIOAppDefault {
 
-  // ZIO / IO / Task types
+  // EFFECTS ALIASES
   // ZIO[-R,+E,+A]
+
+  // unexceptional : U prefix
+  // with environment : R prefix
+
+  // Exceptional Effect
   // IO[E,A]    = ZIO[Any,E,A]
-  // Task[A]    = ZIO[Any,Throwable,A]
   // RIO[R,A]   = ZIO[R,Throwable,A]
+  // Task[A]    = ZIO[Any,Throwable,A]  (mainly to manage legacy code)
+
+  // Unexceptional Effect (U) :
   // UIO[A]     = ZIO[Any,Nothing,A]
-  // RUIO[R,A]  = ZIO[R,Nothing,A]
+  // URIO[R,A]  = ZIO[R,Nothing,A]
 
   // An effect that can fail with an IOException
   val readLine: ZIO[Any, IOException, String] = Console.readLine
