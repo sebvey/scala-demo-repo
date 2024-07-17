@@ -12,3 +12,5 @@ target
 .bloop
 
 .vscode
+.idea
+.bsp

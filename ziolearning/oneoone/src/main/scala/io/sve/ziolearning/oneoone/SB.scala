@@ -1,48 +1,52 @@
 package io.sve.ziolearning.oneoone
 
-import java.io._
 import zio._
 import zio.Console._
-import scala.io.Source
-import scala.concurrent.{ExecutionContext, Future}
-import zio.Schedule
-import zio.{Scope, ZIOAppArgs}
+import zio.Clock._
 
-import sttp.client4._
-import sttp.client4.httpclient.zio.HttpClientZioBackend
-import java.net.http.HttpClient
+import java.io.IOException
 
 
 object SB extends ZIOAppDefault {
 
-  val httpClient = HttpClient.newBuilder().build()
-  val backend = HttpClientZioBackend.usingClient(httpClient)
+  val first = ZIO.succeed(21)
+  val second = ZIO.succeed("23")
 
-  val query = "http language:scala"
+  // parallel execution of the two effects
+  // success is a tuple
+  // error of one interrupts the other
+  // the returned error is :
+  // - the one which fails + Cause.Interrupted for the other
+  // - both errors if failed the 'same time'
+  val zipPar = first.zipPar(second)
 
-  val sort: Option[String] = None
+  // race two effects, returning an Either (left for self, right for other)
+  // if one succeed, the other is interrupted, success is returned
+  // if one fails, the other is still run, waiting for its success
+  // if both failed, both errors are returned
+  val race = first.raceEither(second)
 
-  // the `query` parameter is automatically url-encoded
-  // `sort` is removed, as the value is not defined
-  val request = basicRequest.get(
-    uri"https://api.github.com/search/repositories?q=$query&sort=$sort")
+  // Variants : foreachPar / CollectAllPar, that interrupt all running effects on the first error
+  // Variants, with 'Discard' suffix, to Discard returned value(s)
+
+  // PARALLELISM :
+  // .withParallelism(N) : set the number of fibers that can be launched concurrently
+  // .withParallelismUnbounded : with unlimited fibers
+
+  val collectPar: ZIO[Any, IOException, List[Unit]] =
+    ZIO.collectAllPar(
+      List.fill(100)(race.flatMap(printLine(_)))
+    ).withParallelism(2)
 
 
-  val run = for {
+  // FORCE END PARALLEL FIBERS ON ERROR
+  // use case, we want to know all errors for a validation process
+  // validatePar -> foreachPar equivalent but without interruption of other fibers on one failure
 
-    response <- request.send(backend)
+  val toProcess = List("GOOD","BAD", "BAD")
+  def zioProcess(s: String): ZIO[Any, String, Int] = if (s == "GOOD") ZIO.succeed(101) else ZIO.fail("VALUE ERROR")
+  val process: ZIO[Any, ::[String], List[Int]] = ZIO.validatePar(toProcess)(zioProcess)
 
-    _ <- printLine(response.headers)
-
-  } yield ()
-
-
-
-  // // response.header(...): Option[String]
-  // println(response.header("Content-Length"))
-
-  // // response.body: by default read into an Either[String, String]
-  // // to indicate failure or success
-  // println(response.body)
+  val run = process
 
 }
