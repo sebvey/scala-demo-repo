@@ -1,5 +1,5 @@
 ThisBuild / version      := "0.1.0-SNAPSHOT"
-ThisBuild / scalaVersion := "2.12.18"
+ThisBuild / scalaVersion := "2.12.19"
 ThisBuild / organization := "io.sve"
 
 lazy val baseDependencies = Seq(

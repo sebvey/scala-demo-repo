@@ -14,3 +14,5 @@ target
 .vscode
 .idea
 .bsp
+
+**/project/
