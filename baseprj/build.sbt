@@ -4,15 +4,15 @@ ThisBuild / organization := "io.sve"
 
 lazy val baseDependencies = Seq(
   // "org.scala-lang"          % "scala-reflect"      % "2.12.18",
-  "org.apache.spark"      %% "spark-core"        % "3.3.0",
-  "org.apache.spark"      %% "spark-sql"         % "3.3.0",
+  "org.apache.spark"      %% "spark-core"        % "3.5.1",
+  "org.apache.spark"      %% "spark-sql"         % "3.5.1",
   // "org.apache.hadoop"     % "hadoop-client"      % "3.3.5",
-  "com.github.pureconfig" %% "pureconfig"        % "0.17.6",
-  "com.github.pureconfig" %% "pureconfig-hadoop" % "0.17.6",
+  "com.github.pureconfig" %% "pureconfig"        % "0.17.7",
+  "com.github.pureconfig" %% "pureconfig-hadoop" % "0.17.7",
   "com.github.scopt"      %% "scopt"             % "4.1.0",
-  "com.chuusai"           %% "shapeless"         % "2.3.3",
-  "org.scalactic"         %% "scalactic"         % "3.2.18",
-  "org.scalatest"         %% "scalatest"         % "3.2.18" % "test"
+  "com.chuusai"           %% "shapeless"         % "2.3.12",
+  "org.scalactic"         %% "scalactic"         % "3.2.19",
+  "org.scalatest"         %% "scalatest"         % "3.2.19" % "test"
 )
 
 lazy val root = (project in file("."))
