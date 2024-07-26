@@ -1,8 +1,8 @@
-package io.sve.baseprj.firstjob
+package io.sve.baseprj.simplesparktest
 
-import io.sve.baseprj.framework.SparkSpec
+import io.sve.framework.spec.SparkSpec
 
-class TestSpec extends SparkSpec {
+class BasicSparkSpec extends SparkSpec {
 
     import spark.implicits._
 
@@ -16,7 +16,7 @@ class TestSpec extends SparkSpec {
         val actualDF = Seq(
             (1,"this is a test"),
             (2,"hello sbt")
-        ).toDF("id","desc")
+        ).toDF("id","desx")
 
         assertSmallDatasetEquality(actualDF, expectedDF)
     }
@@ -24,7 +24,7 @@ class TestSpec extends SparkSpec {
     it should "compare two Columns of a DF" in {
 
         val expectedDF = Seq(
-            (1,"this is a test","this is a test"),
+            (1,"this is a test","this is a text"),
             (2,"hello sbt","hello sbt")
         ).toDF("id","desc1","desc2")
 

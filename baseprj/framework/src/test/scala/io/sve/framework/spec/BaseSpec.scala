@@ -1,4 +1,4 @@
-package io.sve.baseprj.framework
+package io.sve.framework.spec
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers

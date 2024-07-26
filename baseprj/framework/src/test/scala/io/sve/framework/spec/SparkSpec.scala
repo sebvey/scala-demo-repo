@@ -1,4 +1,4 @@
-package io.sve.baseprj.framework
+package io.sve.framework.spec
 
 // https://github.com/MrPowers/spark-fast-tests/
 
