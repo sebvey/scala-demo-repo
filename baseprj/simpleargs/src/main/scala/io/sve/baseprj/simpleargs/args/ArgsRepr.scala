@@ -15,10 +15,10 @@ case class ArgsRepr(
 
 // bellow, opt[String](...).action() allows us to 'transform' our args object
 // thanks to the parsed String
-// LocalDateTime can't be parsed by default, we could have used String and
-// converts it to LocalDateTime
-// For better readability we have provided a Reader[LocalDateTime]
-// in trait CustomScoptRead
+
+// LocalDateTime can't be parsed by default
+// we could have used String and converts it to LocalDateTime here ...
+// The 'framework' trait 'CustomScoptRead' provides a Reader[LocalDateTime]
 
 object ArgsRepr extends CustomScoptRead {
   val builder: OParserBuilder[ArgsRepr] = OParser.builder[ArgsRepr]

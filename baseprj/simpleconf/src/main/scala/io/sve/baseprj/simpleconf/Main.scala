@@ -13,9 +13,6 @@ object Main extends App with CustomPureConfig {
   println(conf)
 
     // TODO :
-    // trait ConfApp extends App qui permet de lire la conf et la rendre dispo en variable conf
-    // lire la conf non pas dans resources mais dans conf/
-    // tester la conf
-    // faire une Spec qu'on peut étendre pour tester la conf par défaut, puis un fichier donné sur valeur overridée
+    // reprendre le fonctionnement du framework SEB, avec un chargeur de conf
 
 }
