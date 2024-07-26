@@ -17,8 +17,8 @@ object BaseZIO extends ZIOAppDefault {
 
   // Exceptional Effect
   // IO[E,A]    = ZIO[Any,E,A]
-  // RIO[R,A]   = ZIO[R,Throwable,A]
-  // Task[A]    = ZIO[Any,Throwable,A]  (mainly to manage legacy code)
+  // RIO[R,A]   = ZIO[R,Throwable,A]  (should have been called RTask...)
+  // Task[A]    = ZIO[Any,Throwable,A]
 
   // Unexceptional Effect (U) :
   // UIO[A]     = ZIO[Any,Nothing,A]
