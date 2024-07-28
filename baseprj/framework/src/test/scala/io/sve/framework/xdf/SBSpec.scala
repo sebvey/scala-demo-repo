@@ -7,9 +7,9 @@ class SBSpec extends BaseSpec {
 
   it should "work" in {
 
-    val myStruct = MyStruct()
+    val myDF = DFNavigator()
 
-    println(myStruct.image.url.name)
+    println(myDF.image.url.$.name)
 
   }
 }
