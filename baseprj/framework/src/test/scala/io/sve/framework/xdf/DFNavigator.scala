@@ -5,7 +5,7 @@ import org.apache.spark.sql.types.{DataType, IntegerType, StringType}
 
 case class DFNavigator(
   info: InfoXFN = InfoXFN(),
-  image: ImageXFN = ImageXFN(),
+  image: ImageXFN = new ImageXFN(),
   asin: BaseXFN = BaseXFN.from("asin", StringType, "path_exp_TODO")
 )
 
@@ -18,14 +18,18 @@ object DFNavigator {
     id: BaseXFN = BaseXFN.from("id", IntegerType, "path_exp_TODO"),
     name: BaseXFN = BaseXFN.from("name", StringType, "path_exp_TODO")
   )
-  case class InfoXFN($ : XField = XField("info", fakeDataType, fakePath)) extends InfoNav with EnumXFN
+  case class InfoXFN($ : XField = XField("info", fakeDataType, fakePath)) extends InfoNav with EnumXFN[InfoNav]
 
-  case class Image(
-    url: BaseXFN = BaseXFN.from("url", StringType, "path_exp_TODO"),
-    content: BaseXFN = BaseXFN.from("content", IntegerType, "path_exp_TODO")
-  )
-  case class ImageXFN(
-    $ : XField = XField("image", fakeDataType, fakePath),
-    nav: Image = Image()
-  ) extends ArrayXFN[Image]
+  class ImageElNav(i: Int) {
+    val url: BaseXFN = BaseXFN.from("url", StringType, "path_exp_TODO" + i.toString)
+    val content: BaseXFN = BaseXFN.from("content", IntegerType, "path_exp_TODO" + i.toString)
+  }
+  class ImageElXFN(i: Int) extends ImageElNav(i) with EnumXFN[ImageElNav] {
+    override def $: XField = XField(s"image[$i]", fakeDataType, fakePath)
+  }
+
+  class ImageXFN extends ArrayXFN[ImageElNav] {
+    val $ : XField = XField("image", fakeDataType, fakePath)
+    def apply(i: Int): EnumXFN[ImageElNav] = new ImageElXFN(i)
+  }
 }
