@@ -1,11 +1,12 @@
 package io.sve.framework.xdf
 
-import io.sve.framework.xdf.DFNavigator.{ImageXFN, InfoXFN}
+import io.sve.framework.xdf.DFNavigator.{ImageElNav, ImageElXFN, ImageXFN, InfoXFN}
 import org.apache.spark.sql.types.{DataType, IntegerType, StringType}
 
 case class DFNavigator(
   info: InfoXFN = InfoXFN(),
   image: ImageXFN = new ImageXFN(),
+  tmp: ImageElXFN = new ImageElXFN(0), // TODO TMP
   asin: BaseXFN = BaseXFN.from("asin", StringType, "path_exp_TODO")
 )
 
@@ -30,6 +31,6 @@ object DFNavigator {
 
   class ImageXFN extends ArrayXFN[ImageElNav] {
     val $ : XField = XField("image", fakeDataType, fakePath)
-    def apply(i: Int): EnumXFN[ImageElNav] = new ImageElXFN(i)
+    def apply(i: Int): ImageElXFN = new ImageElXFN(i)
   }
 }
