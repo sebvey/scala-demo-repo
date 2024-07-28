@@ -4,8 +4,8 @@ import io.sve.framework.xdf.MyStruct.ImageField
 import org.apache.spark.sql.types.{IntegerType, StringType}
 
 case class MyStruct(
-  asin: XField[StringType] = XField("asin",StringType),
-  image: ImageField = ImageField()
+  image: ImageField = ImageField(),
+  asin: XField[StringType] = XField("asin", StringType)
 )
 
 object MyStruct {
@@ -15,7 +15,8 @@ object MyStruct {
     content: XField[IntegerType] = XField("content", IntegerType)
   ) extends XEnumField[ImageField] {
     self =>
-    override def __xField: XField[ImageField] = XField("image",self) }
+    override def __xField: XField[ImageField] = XField("image", self)
+  }
 }
 
 //TODO NEXT - Voir si on peut simplifier cette syntaxe en passant par l'objet compagnon de XEnumField

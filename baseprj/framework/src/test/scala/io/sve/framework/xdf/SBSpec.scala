@@ -9,7 +9,7 @@ class SBSpec extends BaseSpec {
 
     val myStruct = MyStruct()
 
-    println(myStruct.image.eStruct.name)
+    println(myStruct.image.url.name)
 
   }
 }
