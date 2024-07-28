@@ -1,12 +1,19 @@
 package io.sve.framework.xdf
 
-// instances that hold everything, case object representing the struct + name, nullable ....
-// it's used as attributes of :
-// - XEnumField, trait extended by case classes representing enums
-// - XArrayField (to come) trait extended by case classes representing arrays
+import org.apache.spark.sql.types.DataType
 
-case class XField[T](
+// instances with all info about the field :
+// - name
+// - dataType
+// - nullable ...
+// + pathExp : expression to reach the field, eg. 'image[0].url'
+
+// it's used as attributes of Field navigators
+// BaseFN / EnumFN / ArrayFN
+
+case class XField(
   name: String,
-  eStruct: T,
+  dataType: DataType,
+  pathExp: String,
   nullable: Boolean = true
 )
