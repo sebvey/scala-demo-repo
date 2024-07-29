@@ -1,36 +1,34 @@
 package io.sve.framework.xdf
 
-import io.sve.framework.xdf.DFNavigator.{ImageElNav, ImageElXFN, ImageXFN, InfoXFN}
-import org.apache.spark.sql.types.{DataType, IntegerType, StringType}
+import io.sve.framework.xdf.DFNavigator.{ImageXFN, InfoXFN}
+import org.apache.spark.sql.types.{IntegerType, StringType}
 
 case class DFNavigator(
   info: InfoXFN = InfoXFN(),
   image: ImageXFN = new ImageXFN(),
-  tmp: ImageElXFN = new ImageElXFN(0), // TODO TMP
   asin: BaseXFN = BaseXFN.from("asin", StringType, "path_exp_TODO")
 )
 
 object DFNavigator {
-
-  val fakeDataType: DataType = StringType
-  val fakePath: String       = "fakePath"
+  val fakePath: String       = "TODO"
 
   case class InfoNav(
-    id: BaseXFN = BaseXFN.from("id", IntegerType, "path_exp_TODO"),
-    name: BaseXFN = BaseXFN.from("name", StringType, "path_exp_TODO")
+    id: BaseXFN = BaseXFN.from("id", IntegerType, fakePath),
+    name: BaseXFN = BaseXFN.from("name", StringType, fakePath)
   )
-  case class InfoXFN($ : XField = XField("info", fakeDataType, fakePath)) extends InfoNav with EnumXFN[InfoNav]
+  case class InfoXFN(
+    $ : XField[InfoNav] = XField.toEnum("info", InfoNav(), fakePath)
+  ) extends InfoNav with EnumXFN[InfoNav]
 
   class ImageElNav(i: Int) {
-    val url: BaseXFN = BaseXFN.from("url", StringType, "path_exp_TODO" + i.toString)
-    val content: BaseXFN = BaseXFN.from("content", IntegerType, "path_exp_TODO" + i.toString)
+    val url: BaseXFN     = BaseXFN.from("url", StringType, fakePath + i.toString)
+    val content: BaseXFN = BaseXFN.from("content", IntegerType, fakePath + i.toString)
   }
   class ImageElXFN(i: Int) extends ImageElNav(i) with EnumXFN[ImageElNav] {
-    override def $: XField = XField(s"image[$i]", fakeDataType, fakePath)
+    override def $ : XField[ImageElNav] = XField.toEnum(s"image[$i]", new ImageElNav(i), fakePath)
   }
-
   class ImageXFN extends ArrayXFN[ImageElNav] {
-    val $ : XField = XField("image", fakeDataType, fakePath)
+    val $ : XField[ImageElNav]    = XField.toArray("image", new ImageElNav(0), fakePath)
     def apply(i: Int): ImageElXFN = new ImageElXFN(i)
   }
 }

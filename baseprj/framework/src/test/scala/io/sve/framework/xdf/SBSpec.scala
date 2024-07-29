@@ -9,6 +9,7 @@ class SBSpec extends BaseSpec {
 
     val myDF = DFNavigator()
 
+
     println(myDF.image(0).url.$)
 
   }

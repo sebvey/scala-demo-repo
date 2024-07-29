@@ -2,14 +2,10 @@ package io.sve.framework.xdf
 
 import org.apache.spark.sql.types.DataType
 
-class BaseXFN(name: String, dataType: DataType, pathExp: String, nullable: Boolean) extends XFN {
+class BaseXFN(name: String, dataType: DataType, pathExp: String, nullable: Boolean) extends XFN[DataType] {
 
-  def $ : XField = XField(
-    name = name,
-    dataType = dataType,
-    pathExp = pathExp,
-    nullable = nullable
-  )
+  def $ : XField[DataType] = XField.toBase(name, dataType, pathExp, nullable)
+
 }
 
 object BaseXFN {
